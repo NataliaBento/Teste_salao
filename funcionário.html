@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard do Gerenciador de Salão</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100%;
+  }
+  
+  .sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar ul li {
+    margin: 15px 0;
+  }
+  
+  .sidebar ul li a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .sidebar ul li a:hover {
+    color: #f8f9fa;
+  }
+  
+  .content {
+    margin-left: 250px; /* Espaço para a sidebar */
+    padding: 20px;
+  }
+  
+  header {
+    margin-bottom: 20px;
+  }
+  
+  </style>
+  
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+          <h2>Menu</h2>
+          <ul>
+            <li><a href="agendamentos.html">Agendamentos</a></li>
+            <li><a href="calendario.html">Calendário</a></li>
+            <li><a href="clientes-agendados.html">Clientes Agendados Hoje</a></li>
+            <li><a href="servicos.html">Serviços</a></li>
+            <li><a href="relatorios.html">Relatórios</a></li>
+            <li><a href="configuracoes.html">Configurações</a></li>
+          </ul>
+        </nav>
+    
+        <!-- Conteúdo Principal -->
+        <div class="content">
+          <header>
+            <h1>Dashboard do Gerenciador</h1>
+            <p>Bem-vindo ao sistema de gerenciamento do salão!</p>
+          </header>
+          <p>Selecione um item no menu à esquerda para navegar.</p>
+        </div>
+      </div>
+    
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+</body>
+</html>
+
+
+  

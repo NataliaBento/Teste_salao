@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento</title>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.print.min.css" media="print" />
+    <link rel="stylesheet" href="agendamentos.css">
+</head>
+<body>
+    <div class="calendar-container">
+        <h2>Calendário de Agendamento</h2>
+        <div id='calendar'></div>
+
+        <div class="available-times" id="available-times" style="display: none;">
+            <h2>Horários Disponíveis</h2>
+            <div id="times-list"></div>
+        </div>
+
+        <div class="professional-card" id="professional-info">
+            <h2>Profissional Responsável</h2>
+            <div class="professional-info">
+                <img src="profissional.jpg" alt="Profissional" class="professional-image">
+                <p><strong>Nome:</strong> <span id="professional-name">João Silva</span></p>
+                <p><strong>Especialidade:</strong> <span id="professional-specialty">Esteticista</span></p>
+                <p><strong>Preço:</strong> R$ <span id="professional-price">80,00</span></p>
+            </div>
+        </div>
+
+        <div class="summary" id="summary" style="display: none;">
+            <h2>Resumo do Agendamento</h2>
+            <p><strong>Data:</strong> <span id="summary-date"></span></p>
+            <p><strong>Horário:</strong> <span id="summary-time"></span></p>
+        </div>
+
+        <div class="action-buttons">
+            <button id="finalize-button" class="confirm-button" style="display: none;">Concluir Agendamento</button>
+            <button id="cancel-button" class="cancel-button" onclick="window.location.href='pagina_de_servicos.html'">Cancelar</button>
+        </div>
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/lang/pt-br.js'></script>
+    <script>
+        let selectedDate = null; // Data selecionada
+        let selectedTime = null; // Horário selecionado
+
+        $(document).ready(function() {
+            const bookedDates = [
+                moment().add(2, 'days').format('YYYY-MM-DD'), // Exemplo de data agendada
+                moment().add(5, 'days').format('YYYY-MM-DD')  // Outra data agendada
+            ];
+
+            $('#calendar').fullCalendar({
+                locale: 'pt-br',
+                selectable: true,
+                selectHelper: true,
+                select: function(start) {
+                    const newDate = moment(start).format('YYYY-MM-DD');
+
+                    // Verifica se a nova data está agendada
+                    if (!bookedDates.includes(newDate) && selectedDate !== newDate) {
+                        // Remove a seleção anterior
+                        $('#calendar').fullCalendar('unselect');
+
+                        // Muda a cor da data para branco
+                        $('#calendar').fullCalendar('renderEvent', {
+                            title: 'Pré-agendado',
+                            start: start,
+                            allDay: true,
+                            color: 'white'
+                        }, true);
+
+                        // Atualiza a data selecionada
+                        selectedDate = newDate;
+
+                        // Atualiza horários disponíveis
+                        updateAvailableTimes(selectedDate);
+                    } else {
+                        alert('Esta data já está agendada ou você já selecionou esta data!');
+                    }
+                },
+                events: bookedDates.map(date => ({
+                    title: 'Agendado',
+                    start: date,
+                    allDay: true,
+                    color: 'red'
+                })),
+                dayRender: function(date, cell) {
+                    const formattedDate = date.format('YYYY-MM-DD');
+                    if (bookedDates.includes(formattedDate)) {
+                        cell.css("background-color", "rgba(255, 0, 0, 0.2)");
+                    } else {
+                        cell.css("background-color", "rgba(0, 255, 0, 0.2)");
+                    }
+                }
+            });
+        });
+
+        function updateProfessionalInfo() {
+            const professionalName = "João Silva";
+            const professionalSpecialty = "Esteticista";
+            const professionalPrice = "80,00";
+            
+            document.getElementById("professional-name").textContent = professionalName;
+            document.getElementById("professional-specialty").textContent = professionalSpecialty;
+            document.getElementById("professional-price").textContent = professionalPrice;
+        }
+
+        function updateAvailableTimes(selectedDate) {
+            const availableTimes = ["09:00", "10:00", "11:00", "14:00", "15:00"]; // Horários disponíveis
+
+            const timesList = document.getElementById("times-list");
+            timesList.innerHTML = ''; // Limpa a lista anterior
+            document.getElementById("available-times").style.display = 'block'; // Exibe a seção de horários
+
+            availableTimes.forEach(time => {
+                const button = document.createElement('button');
+                button.textContent = time;
+                button.className = 'time-button';
+                button.onclick = function() {
+                    selectTime(time);
+                };
+                timesList.appendChild(button);
+            });
+
+            // Exibe o botão de finalizar apenas quando os horários forem atualizados
+            document.getElementById("finalize-button").style.display = 'none';
+            document.getElementById("summary").style.display = 'none';
+        }
+
+        function selectTime(time) {
+            // Se já houver um horário selecionado, remove a seleção anterior
+            if (selectedTime) {
+                document.querySelectorAll('.time-button').forEach(button => {
+                    button.classList.remove('selected-time');
+                });
+            }
+
+            // Marca o novo horário como selecionado
+            selectedTime = time;
+            document.getElementById("summary-date").textContent = selectedDate;
+            document.getElementById("summary-time").textContent = selectedTime;
+
+            // Atualiza a interface para mostrar o horário selecionado
+            const selectedButton = Array.from(document.querySelectorAll('.time-button')).find(button => button.textContent === time);
+            selectedButton.classList.add('selected-time');
+
+            // Exibe o botão de finalizar e o resumo do agendamento
+            document.getElementById("finalize-button").style.display = 'block';
+            document.getElementById("summary").style.display = 'block';
+        }
+
+        document.getElementById("finalize-button").onclick = function() {
+            alert(`Agendamento confirmado para ${selectedDate} às ${selectedTime}`);
+            // Aqui você pode adicionar a lógica para enviar o agendamento para o servidor
+        };
+
+        // Atualiza as informações do profissional ao carregar a página
+        updateProfessionalInfo();
+    </script>
+</body>
+</html>

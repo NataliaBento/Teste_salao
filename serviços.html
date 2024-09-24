@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendamento - Salão de Beleza</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="serviços.css">
+</head>
+<body>
+
+  <!-- Carrossel de Imagens -->
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="assets/banner-ead.jpg" class="d-block w-100" alt="banner senac ead">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/banner-espaco-conhecimento.jpg" class="d-block w-100" alt="banner espaco conhecimento">
+      </div>
+      <div class="carousel-item">
+        <img src="assets/banner-pos.jpg" class="d-block w-100" alt="banner pos graduação senac">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Anterior</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Próximo</span>
+    </a>
+  </div>
+
+  <!-- Categorias e Subcategorias -->
+  <div class="container mt-5">
+    <h2 class="titulo">Agendar Serviços</h2>
+    <!-- Categoria: Cabeleireiro -->
+    <div class="category">
+      <button class="category-btn" onclick="toggleDropdown('cabeleireiro')">Cabeleireiro <span class="arrow">&#9662;</span></button>
+      <div id="cabeleireiro" class="category-content">
+        <ul class="subcategory">
+          <li>
+            Corte Feminino - <span class="preco">R$ 65,00</span>
+            <button class="add-button" onclick="addService(65)">+</button>
+            <button class="remove-button" onclick="removeService(65)">-</button>
+          </li>
+          <li>
+            Corte Masculino - <span class="preco">R$ 45,00</span>
+            <button class="add-button" onclick="addService(45)">+</button>
+            <button class="remove-button" onclick="removeService(45)">-</button>
+          </li>
+          <li>
+            Luzes - <span class="preco">R$ 200,00</span>
+            <button class="add-button" onclick="addService(200)">+</button>
+            <button class="remove-button" onclick="removeService(200)">-</button>
+          </li>
+          <li>
+            Escova - <span class="preco">R$ 40,00</span>
+            <button class="add-button" onclick="addService(40)">+</button>
+            <button class="remove-button" onclick="removeService(40)">-</button>
+          </li>
+          <li>
+            Barba / Design de Barba <span class="preco">R$ 40,00</span>
+            <button class="add-button" onclick="addService(40)">+</button>
+            <button class="remove-button" onclick="removeService(40)">-</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <!-- Categoria: Manicure e Pedicure -->
+    <div class="category">
+      <button class="category-btn" onclick="toggleDropdown('manicure')">Manicure e Pedicure<span class="arrow">&#9662;</span></button>
+      <div id="manicure" class="category-content">
+        <ul class="subcategory">
+          <li>
+            Manicure - <span class="preco">R$ 23,00</span>
+            <button class="add-button" onclick="addService(23)">+</button>
+            <button class="remove-button" onclick="removeService(23)">-</button>
+          </li>
+          <li>
+            Esmaltação (Cortar + Lixar + Esmaltar) - <span class="preco">R$ 13,00</span>
+            <button class="add-button" onclick="addService(13)">+</button>
+            <button class="remove-button" onclick="removeService(13)">-</button>
+          </li>
+          <li>
+             Francesinha ou Inglesinha - <span class="preco">R$ 5,00</span>
+            <button class="add-button" onclick="addService(5)">+</button>
+            <button class="remove-button" onclick="removeService(5)">-</button>
+          </li>
+          <li>
+            Pedicure + Manicure - <span class="preco">R$ 45,00</span>
+           <button class="add-button" onclick="addService(45)">+</button>
+           <button class="remove-button" onclick="removeService(45)">-</button>
+         </li>
+         <li>
+          Pedicure - <span class="preco">R$ 23,00</span>
+         <button class="add-button" onclick="addService(23)">+</button>
+         <button class="remove-button" onclick="removeService(23)">-</button>
+       </li>
+        </ul>
+      </div>
+    </div>
+
+    <!--Estética-->
+    <div class="category">
+      <button class="category-btn" onclick="toggleDropdown('estetica')">
+          Estética<span class="arrow">&#9662;</span>
+      </button>
+      <div id="estetica" class="category-content">
+          <ul class="subcategory">
+              <li>
+                  Drenagem Linfática Corporal Manual (por área) - <span class="preco">R$ 65,00</span>
+                  <button class="add-button" onclick="addService(65)">+</button>
+                  <button class="remove-button" onclick="removeService(65)">-</button>
+              </li>
+              <li>
+                  Limpeza de Pele - <span class="preco">R$ 85,00</span>
+                  <button class="add-button" onclick="addService(85)">+</button>
+                  <button class="remove-button" onclick="removeService(85)">-</button>
+              </li>
+              <li>
+                Reflexologia Podal - <span class="preco">R$ 85,00</span>
+                <button class="add-button" onclick="addService(85)">+</button>
+                <button class="remove-button" onclick="removeService(85)">-</button>
+            </li>
+            <li>
+              Revitalização Facial - <span class="preco">R$ 85,00</span>
+              <button class="add-button" onclick="addService(85)">+</button>
+              <button class="remove-button" onclick="removeService(85)">-</button>
+          </li>
+          <li>
+            Ventosaterapia (Sessão 40 minutos) - <span class="preco">R$50,00</span>
+            <button class="add-button" onclick="addService(50)">+</button>
+            <button class="remove-button" onclick="removeService(50)">-</button>
+        </li>
+          </ul>
+      </div>
+  </div>
+
+  <!-- Depilação -->
+  <div class="category">
+    <button class="category-btn" onclick="toggleDropdown('depilacao')">Depilação Com cera<span class="arrow">&#9662;</span></button>
+    <div id="depilacao" class="category-content">
+      <ul class="subcategory">
+        <li>
+          Depilação Feminina - 1/2 Pernas<span class="preco">R$ 30,00</span>
+          <button class="add-button" onclick="addService(30)">+</button>
+          <button class="remove-button" onclick="removeService(30)">-</button>
+        </li>
+        <li>
+          Axilas - <span class="preco">R$ 24,00</span>
+          <button class="add-button" onclick="addService(24)">+</button>
+          <button class="remove-button" onclick="removeService(24)">-</button>
+        </li>
+        <li>
+           Vrilha Simples (Contorno) - <span class="preco">R$ 28,00</span>
+          <button class="add-button" onclick="addService(28)">+</button>
+          <button class="remove-button" onclick="removeService(28)">-</button>
+        </li>
+        <li>
+          Pernas Completas <span class="preco">R$ 55,00</span>
+         <button class="add-button" onclick="addService(55)">+</button>
+         <button class="remove-button" onclick="removeService(55)">-</button>
+       </li>
+       <li>
+        Coxas - <span class="preco">R$ 40,00</span>
+       <button class="add-button" onclick="addService(40)">+</button>
+       <button class="remove-button" onclick="removeService(40)">-</button>
+     </li>
+      </ul>
+    </div>
+  </div>
+  
+       </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Seção de Totais Finais -->
+    <div class="total-section">
+      <div class="total-services">
+        Total de serviços selecionados: <span id="total-services">0</span>
+      </div>
+      <div class="total-services">
+        Valor total: <span id="total-value">R$ 0,00</span>
+      </div>
+      <!-- Botões Agendar e Cancelar -->
+      <div class="text-center">
+        <a href="proxima-tela.html" class="btn-agendar">Agendar</a>
+        <button class="btn-cancelar" onclick="cancelarAgendamento()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts do Bootstrap e jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    let totalServices = 0;
+    let totalValue = 0;
+
+    function addService(value) {
+      totalServices++;
+      totalValue += value;
+      updateTotals();
+    }
+
+    function removeService(value) {
+      if (totalServices > 0) {
+        totalServices--;
+        totalValue -= value;
+        updateTotals();
+      }
+    }
+
+    function updateTotals() {
+      document.getElementById("total-services").innerText = totalServices;
+      document.getElementById("total-value").innerText = `R$ ${totalValue.toFixed(2).replace('.', ',')}`;
+    }
+
+    function cancelarAgendamento() {
+      totalServices = 0;
+      totalValue = 0;
+      updateTotals();
+      alert("Agendamento cancelado.");
+    }
+
+    function toggleDropdown(category) {
+      const content = document.getElementById(category);
+      content.style.display = content.style.display === "block" ? "none" : "block";
+    }
+  </script>
+</body>
+</html>
