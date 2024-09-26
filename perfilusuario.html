@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alteração de Usuário - Salão de Beleza</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="perfilusuario.css">
+    
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <div class="header">
+        <div class="user-icon">👤 Danilo Soares</div>
+        <div>
+            <a href="serviços.html" class="main-menu">Menu Principal</a>
+        </div>
+    </div>
+
+    
+    <div class="container">
+        <h2>Alterar Dados do Usuário</h2>
+
+      >
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Informações Pessoais</h5>
+                <p>Nome: <input type="text" id="user-name" value="João da Silva" disabled> <span class="edit-btn" onclick="editField('user-name')">Editar</span></p>
+                <p>Email: <input type="email" id="user-email" value="joao@example.com" disabled> <span class="edit-btn" onclick="editField('user-email')">Editar</span></p>
+                <p>Telefone: <input type="tel" id="user-phone" value="+55 11 91234-5678" disabled> <span class="edit-btn" onclick="editField('user-phone')">Editar</span></p>
+            </div>
+        </div>
+
+       
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Histórico de Agendamentos</h5>
+                <ul class="list-group">
+                    <li class="list-group-item">Corte Feminino com Profissional A - <strong>R$ 65,00</strong> - <em>01/08/2024</em></li>
+                    <li class="list-group-item">Escova com Profissional B - <strong>R$ 40,00</strong> - <em>02/08/2024</em></li>
+                    <li class="list-group-item">Manicure com Profissional C - <strong>R$ 23,00</strong> - <em>03/08/2024</em></li>
+                    <li class="list-group-item">Pedicure com Profissional D - <strong>R$ 23,00</strong> - <em>04/08/2024</em></li>
+                    <li class="list-group-item">Limpeza de Pele com Profissional E - <strong>R$ 85,00</strong> - <em>05/08/2024</em></li>
+                    <li class="list-group-item">Drenagem Linfática com Profissional F - <strong>R$ 65,00</strong> - <em>06/08/2024</em></li>
+                    <li class="list-group-item">Reflexologia com Profissional G - <strong>R$ 85,00</strong> - <em>07/08/2024</em></li>
+                    <li class="list-group-item">Corte Masculino com Profissional H - <strong>R$ 45,00</strong> - <em>08/08/2024</em></li>
+                    <li class="list-group-item">Barba com Profissional I - <strong>R$ 40,00</strong> - <em>09/08/2024</em></li>
+                    <li class="list-group-item">Depilação com Profissional J - <strong>R$ 30,00</strong> - <em>10/08/2024</em></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Botões para salvar ou cancelar -->
+        <div class="text-center button-container">
+            <button class="btn btn-success" onclick="saveChanges()">Salvar Alterações</button>
+            <button class="btn btn-danger" onclick="cancelChanges()">Cancelar</button>
+        </div>
+    </div>
+
+   
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function editField(fieldId) {
+            const field = document.getElementById(fieldId);
+            field.disabled = false; // Ativa o campo para edição
+            field.focus(); // Foca no campo editável
+        }
+
+        function saveChanges() {
+            // Aqui você pode adicionar a lógica para salvar as alterações no backend
+            alert("Alterações salvas com sucesso!");
+        }
+
+        function cancelChanges() {
+            // Aqui você pode adicionar a lógica para cancelar as alterações
+            alert("Alterações canceladas!");
+        }
+    </script>
+</body>
+</html>

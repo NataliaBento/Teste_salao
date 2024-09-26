@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agendamento</title>
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.print.min.css" media="print" />
     <link rel="stylesheet" href="agendamentos.css">
+    
 </head>
 <body>
     <div class="calendar-container">
         <h2>Calendário de Agendamento</h2>
-        <div id='calendar'></div>
+        <div id="calendar"></div>
 
         <div class="available-times" id="available-times" style="display: none;">
             <h2>Horários Disponíveis</h2>
@@ -21,10 +22,12 @@
         <div class="professional-card" id="professional-info">
             <h2>Profissional Responsável</h2>
             <div class="professional-info">
-                <img src="profissional.jpg" alt="Profissional" class="professional-image">
-                <p><strong>Nome:</strong> <span id="professional-name">João Silva</span></p>
-                <p><strong>Especialidade:</strong> <span id="professional-specialty">Esteticista</span></p>
-                <p><strong>Preço:</strong> R$ <span id="professional-price">80,00</span></p>
+                <img src="assets/foto profissional.png" alt="Imagem do Profissional João Silva" class="professional-image">
+                <div>
+                    <p><strong>Nome:</strong> <span id="professional-name">João Silva</span></p>
+                    <p><strong>Especialidade:</strong> <span id="professional-specialty">Esteticista</span></p>
+                    <p><strong>Preço:</strong> R$ <span id="professional-price">80,00</span></p>
+                </div>
             </div>
         </div>
 
@@ -36,22 +39,34 @@
 
         <div class="action-buttons">
             <button id="finalize-button" class="confirm-button" style="display: none;">Concluir Agendamento</button>
-            <button id="cancel-button" class="cancel-button" onclick="window.location.href='pagina_de_servicos.html'">Cancelar</button>
+            <button id="cancel-button" class="cancel-button" onclick="window.location.href='serviços.html'">Cancelar</button>
+
         </div>
     </div>
 
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/lang/pt-br.js'></script>
+    <!-- Modal para adicionar um evento -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Adicionar Evento</h2>
+            <label for="eventTitle">Título do Evento:</label>
+            <input type="text" id="eventTitle" placeholder="Digite o título do evento" aria-label="Título do Evento">
+            <button id="addEventButton">Adicionar Evento</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/lang/pt-br.js"></script>
     <script>
         let selectedDate = null; // Data selecionada
         let selectedTime = null; // Horário selecionado
 
         $(document).ready(function() {
             const bookedDates = [
-                moment().add(2, 'days').format('YYYY-MM-DD'), // Exemplo de data agendada
-                moment().add(5, 'days').format('YYYY-MM-DD')  // Outra data agendada
+                moment().add(2, 'days').format('DD-MM-YYYY'), // Exemplo de data agendada
+                moment().add(5, 'days').format('DD-MM-YYYY')  // Outra data agendada
             ];
 
             $('#calendar').fullCalendar({
@@ -59,7 +74,7 @@
                 selectable: true,
                 selectHelper: true,
                 select: function(start) {
-                    const newDate = moment(start).format('YYYY-MM-DD');
+                    const newDate = moment(start).format('DD-MM-YYYY');
 
                     // Verifica se a nova data está agendada
                     if (!bookedDates.includes(newDate) && selectedDate !== newDate) {
@@ -90,12 +105,15 @@
                     color: 'red'
                 })),
                 dayRender: function(date, cell) {
-                    const formattedDate = date.format('YYYY-MM-DD');
+                    const formattedDate = date.format('DD-MM-YYYY');
                     if (bookedDates.includes(formattedDate)) {
                         cell.css("background-color", "rgba(255, 0, 0, 0.2)");
                     } else {
                         cell.css("background-color", "rgba(0, 255, 0, 0.2)");
                     }
+                },
+                eventClick: function(event) {
+                    alert('Você clicou em: ' + event.title);
                 }
             });
         });
@@ -110,57 +128,58 @@
             document.getElementById("professional-price").textContent = professionalPrice;
         }
 
-        function updateAvailableTimes(selectedDate) {
-            const availableTimes = ["09:00", "10:00", "11:00", "14:00", "15:00"]; // Horários disponíveis
-
+        function updateAvailableTimes(date) {
             const timesList = document.getElementById("times-list");
             timesList.innerHTML = ''; // Limpa a lista anterior
-            document.getElementById("available-times").style.display = 'block'; // Exibe a seção de horários
 
-            availableTimes.forEach(time => {
-                const button = document.createElement('button');
+            // Exemplo de horários disponíveis
+            const availableTimes = ['09:00', '10:00', '11:00', '14:00', '15:00'];
+
+            availableTimes.forEach(function(time) {
+                const button = document.createElement("button");
+                button.className = "time-button";
                 button.textContent = time;
-                button.className = 'time-button';
                 button.onclick = function() {
                     selectTime(time);
                 };
                 timesList.appendChild(button);
             });
 
-            // Exibe o botão de finalizar apenas quando os horários forem atualizados
-            document.getElementById("finalize-button").style.display = 'none';
-            document.getElementById("summary").style.display = 'none';
+            document.getElementById("available-times").style.display = 'block';
         }
 
         function selectTime(time) {
-            // Se já houver um horário selecionado, remove a seleção anterior
-            if (selectedTime) {
-                document.querySelectorAll('.time-button').forEach(button => {
-                    button.classList.remove('selected-time');
-                });
-            }
-
-            // Marca o novo horário como selecionado
+            const buttons = document.querySelectorAll(".time-button");
+            buttons.forEach(button => button.classList.remove("selected-time"));
+            event.target.classList.add("selected-time");
             selectedTime = time;
+
             document.getElementById("summary-date").textContent = selectedDate;
             document.getElementById("summary-time").textContent = selectedTime;
-
-            // Atualiza a interface para mostrar o horário selecionado
-            const selectedButton = Array.from(document.querySelectorAll('.time-button')).find(button => button.textContent === time);
-            selectedButton.classList.add('selected-time');
-
-            // Exibe o botão de finalizar e o resumo do agendamento
-            document.getElementById("finalize-button").style.display = 'block';
             document.getElementById("summary").style.display = 'block';
+            document.getElementById("finalize-button").style.display = 'block';
         }
 
         document.getElementById("finalize-button").onclick = function() {
-            alert(`Agendamento confirmado para ${selectedDate} às ${selectedTime}`);
-            // Aqui você pode adicionar a lógica para enviar o agendamento para o servidor
+            alert('Agendamento concluído com sucesso!');
+            // Aqui você pode adicionar a lógica para salvar o agendamento no servidor
         };
 
-        // Atualiza as informações do profissional ao carregar a página
-        updateProfessionalInfo();
+        document.getElementById("closeModal").onclick = function() {
+            document.getElementById("eventModal").style.display = "none";
+        };
+
+        document.getElementById("addEventButton").onclick = function() {
+            const title = document.getElementById("eventTitle").value;
+            if (title) {
+                $('#calendar').fullCalendar('renderEvent', {
+                    title: title,
+                    start: selectedDate,
+                    allDay: true
+                }, true);
+                document.getElementById("eventModal").style.display = "none";
+            }
+        };
     </script>
 </body>
 </html>

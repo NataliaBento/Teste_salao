@@ -1,0 +1,38 @@
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f8f9fa;
+        }
+
+        .user-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .main-menu {
+            text-decoration: none;
+            color: #007bff; /* Azul do Bootstrap */
+            font-weight: bold;
+            margin-left: 20px; /* Espaço entre o nome do usuário e o menu */
+        }
+
+        .edit-btn {
+            color: #ff6f00; /* Tom de laranja */
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .card {
+            margin: 15px 0;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
