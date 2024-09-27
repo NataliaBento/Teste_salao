@@ -38,7 +38,7 @@ body {
 /* Estilo para o botão das categorias */
 button.category-btn {
     background-color: #F39C21; /* Cor de fundo */
-    color: white; /* Cor do texto */
+    color: #ffffff; /* Cor do texto */
     padding: 10px;
     border: none;
     border-radius: 5px;
